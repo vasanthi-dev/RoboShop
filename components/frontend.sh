@@ -4,7 +4,7 @@ git pull
 print(){
   echo -e "\e[32m$1\e[0m"
   echo -e "\n\e[33m=============$1===============\e[0m" >>$LOG
-  echo $?
+  echo $?>>$LOG
 }
 LOG=/tmp/roboshop.log
 rm -f $LOG
