@@ -1,17 +1,23 @@
 #!/bin/bash
 
+git pull
+print(){
+  echo -e "\e[32m$1\e[0m"
+  echo -e "\n\e[33m=============$1===============\e[0m" >>$LOG
+  echo $?
+}
+LOG=/tmp/roboshop.log
+rm -f $LOG
 
-echo -e "\e[32mInstalling Nginx\e[0m"
-yum install nginx -y
-echo $?
+print "Installing Nginx"
+yum install nginx -y >>$LOG
 
-echo -e "\e[33mEnable Nginx\e[0m"
-systemctl enable nginx
-echo $?
+print "Enable Nginx"
+systemctl enable nginx >>$LOG
 
-echo -e "\e[34mStart Nginx\e[0m"
-systemctl start nginx
-echo $?
+print "Start Nginx"
+systemctl start nginx >>$LOG
+
 
 exit
 #Let's download the HTDOCS content and deploy under the Nginx path.
