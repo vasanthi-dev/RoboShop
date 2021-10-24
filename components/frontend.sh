@@ -4,12 +4,15 @@ source components/commons.sh
 
 print "Installing Nginx"
 yum install nginx -y >>$LOG
+stat $?
 
 print "Enable Nginx"
 systemctl enable nginx >>$LOG
+stat $?
 
 print "Start Nginx"
 systemctl start nginx >>$LOG
+stat $?
 
 
 exit
