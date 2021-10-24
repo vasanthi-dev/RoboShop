@@ -1,16 +1,9 @@
 #!/bin/bash
 
-git pull
-print(){
-  echo -e "\e[32m$1\e[0m"
-  echo -e "\n\e[33m=============$1===============\e[0m" >>$LOG
-  echo $?>>$LOG
-}
-LOG=/tmp/roboshop.log
-rm -f $LOG
+source components/commons.sh
 
 print "Installing Nginx"
-yum install nginx -y >>$LOG
+yum install nginxx -y >>$LOG
 
 print "Enable Nginx"
 systemctl enable nginx >>$LOG
