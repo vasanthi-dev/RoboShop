@@ -3,14 +3,16 @@
 
 echo -e "\e[32mInstalling Nginx\e[0m"
 yum install nginx -y
-echo &?
+echo $?
 
 echo -e "\e[33mEnable Nginx\e[0m"
 systemctl enable nginx
-echo &?
+echo $?
 
 echo -e "\e[34mStart Nginx\e[0m"
 systemctl start nginx
+echo $?
+
 exit
 #Let's download the HTDOCS content and deploy under the Nginx path.
 
