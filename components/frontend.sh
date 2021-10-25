@@ -3,7 +3,7 @@
 source components/commons.sh
 
 print "Installing Nginx"
-yum install nginxe -y >>$LOG
+yum install nginxexx -y >>$LOG
 stat $?
 
 print "Enable Nginx"
