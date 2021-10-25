@@ -14,14 +14,15 @@ print "Start Nginx"
 systemctl start nginx >>$LOG
 stat $?
 
+print "Download content"
+curl -s -L -o /tmp/frontend.zip "https://github.com/roboshop-devops-project/frontend/archive/main.zip"
+stat $?
+
+print "Change Directories"
+cd /usr/share/nginx/html
+stat $?
 
 exit
-#Let's download the HTDOCS content and deploy under the Nginx path.
-
-curl -s -L -o /tmp/frontend.zip "https://github.com/roboshop-devops-project/frontend/archive/main.zip"
-#Deploy in Nginx Default Location.
-
-cd /usr/share/nginx/html
 rm -rf *
 unzip /tmp/frontend.zip
 mv frontend-main/* .
