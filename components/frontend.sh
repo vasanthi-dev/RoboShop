@@ -3,31 +3,33 @@
 source components/common.sh
 
 print "Installing Nginx"
-yum install nginx -y >>$LOG
+yum install nginx -y &>>$LOG
+stat $?
+
+print "Download html pages"
+curl -s -L -o /tmp/frontend.zip "https://github.com/roboshop-devops-project/frontend/archive/main.zip" &>>$LOG
+stat $?
+
+print "Remove old html pages"
+rm -rf /usr/share/nginx/html/* &>>$LOG
+stat $?
+
+print "Extract Frontend Archive"
+unzip -d -o /tmp /tmp/frontend.zip &>>$LOG
+stat $?
+
+print "Copy Files to Nginx Path "
+mv /tmp/frontend-main/static/* /usr/share/nginx/html/. &>>$LOG
+stat $?
+
+print "Copy Nginx Roboshop Config File"
+cp /tmp/frontend-main/localhost.conf /etc/nginx/default.d/roboshop.conf &>>LOG
 stat $?
 
 print "Enable Nginx"
-systemctl enable nginx >>$LOG
+systemctl enable nginx &>>$LOG
 stat $?
 
-print "Start Nginx"
-systemctl start nginx >>$LOG
+print "Restart Nginx"
+systemctl restart nginx &>>$LOG
 stat $?
-
-print "Download content"
-curl -s -L -o /tmp/frontend.zip "https://github.com/roboshop-devops-project/frontend/archive/main.zip"
-stat $?
-
-print "Change Directories"
-cd /usr/share/nginx/html
-stat $?
-
-exit
-rm -rf *
-unzip /tmp/frontend.zip
-mv frontend-main/* .
-mv static/* .
-rm -rf frontend-master static README.md
-mv localhost.conf /etc/nginx/default.d/roboshop.conf
-#Finally restart the service once to effect the changes.
-systemctl restart nginx
