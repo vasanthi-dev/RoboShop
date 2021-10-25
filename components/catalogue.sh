@@ -27,14 +27,18 @@ print "Extract Catalogue Archive"
 unzip -o -d /home/roboshop /tmp/catalogue.zip &>>$LOG
 stat $?
 
-exit
-$ cd /home/roboshop
-$ unzip /tmp/catalogue.zip
-$ mv catalogue-main catalogue
-$ cd /home/roboshop/catalogue
-$ npm install
-NOTE: We need to update the IP address of MONGODB Server in systemd.service file
-Now, lets set up the service with systemctl.
+print "Copy Content"
+mv /home/roboshop/catalogue-main /home/roboshop/catalogue &>>$LOG
+stat $?
+
+print "Install NodeJS Dependencies"
+cd /home/roboshop/catalogue
+npm install --unsafe-perm &>>$LOG
+stat $?
+
+print "Fix App Permissions"
+chown -R roboshop:roboshop /home/roboshop
+stat $?
 
 # mv /home/roboshop/catalogue/systemd.service /etc/systemd/system/catalogue.service
 # systemctl daemon-reload
