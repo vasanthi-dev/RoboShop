@@ -1,7 +1,7 @@
 #!/bin/bash
 
 print(){
-  echo -n -e "\e[1;32m$1\e[0m ... "
+  echo -n -e "\e[1m$1\e[0m ... "
   echo -e "\n\e[33m=============$1===============\e[0m" >>$LOG
 }
 stat(){
