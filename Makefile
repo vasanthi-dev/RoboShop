@@ -12,6 +12,7 @@ help:
 	# @grep '####' Makefile | grep -v grep | sed -e 's/####//'
 
 git-pull:
+	@echo -----------+ Pulling Git Code +--------------
 	@git pull &>/dev/null
 
 cart: git-pull ## Setup Cart Component
