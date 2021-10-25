@@ -3,7 +3,7 @@
 echo -e "\e[1;32m=============GIT PULL=============\e[0m"
 git pull &>/dev/null
 print(){
-  echo -e "\e[1;32m$1\e[0m ... "
+  echo -n -e "\e[1;32m$1\e[0m ... "
   echo -e "\n\e[33m=============$1===============\e[0m" >>$LOG
 }
 stat(){
