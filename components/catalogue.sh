@@ -37,10 +37,17 @@ npm install --unsafe-perm &>>$LOG
 stat $?
 
 print "Fix App Permissions"
-chown -R roboshop:roboshop /home/roboshop
+chown -R roboshop:roboshop /home/roboshop &>>$LOG
 stat $?
 
-# mv /home/roboshop/catalogue/systemd.service /etc/systemd/system/catalogue.service
-# systemctl daemon-reload
-# systemctl start catalogue
-# systemctl enable catalogue
+print "Update DNS records in systemd config"
+sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' /home/roboshop/catalogue/systemd.service &>>$LOG
+stat $?
+
+print "Copy systemD file"
+mv /home/roboshop/catalogue/systemd.service /etc/systemd/system/catalogue.service &>>$LOG
+stat $?
+
+print "Start Catalogue Service"
+systemctl daemon-reload && systemctl start catalogue && systemctl enable catalogue $>>$LOG
+stat $?
