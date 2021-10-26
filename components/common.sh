@@ -27,6 +27,10 @@ DOWNLOAD(){
   print "Download $COMPONENT_NAME"
     curl -s -L -o /tmp/${COMPONENT}.zip "https://github.com/roboshop-devops-project/${COMPONENT}/archive/main.zip" &>>$LOG
     stat $?
+
+  print "Extract $COMPONENT_NAME Archive"
+  unzip -o -d $1 /tmp/${COMPONENT}.zip &>>$LOG
+  stat $?
 }
 
 NODEJS(){
@@ -43,15 +47,11 @@ NODEJS(){
   fi
   stat $?
 
-DOWNLOAD
-
   print "Remove Old Content"
   rm -rf /home/roboshop/${COMPONENT} &>>$LOG
   stat $?
 
-  print "Extract $COMPONENT_NAME Archive"
-  unzip -o -d /home/roboshop /tmp/${COMPONENT}.zip &>>$LOG
-  stat $?
+  DOWNLOAD "/home/roboshop"
 
   print "Copy Content"
   mv /home/roboshop/${COMPONENT}-main /home/roboshop/${COMPONENT} &>>$LOG
