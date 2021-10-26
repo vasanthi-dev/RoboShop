@@ -2,6 +2,11 @@
 
 source components/common.sh
 
+MSPACE=$(cat $0 components/common.sh | grep print | awk -F '"' '{print $2}' | awk '{ print length }'| sort | tail -1)
+
+COMPONENT_NAME=Mysql
+COMPONENT=mysql
+
 print "Downloading Repos"
 curl -s -L -o /etc/yum.repos.d/mysql.repo https://raw.githubusercontent.com/roboshop-devops-project/mysql/main/mysql.repo &>>$LOG
 stat $?
@@ -12,12 +17,12 @@ stat $?
 
 
 print "Enable MYSQLD"
-systemctl enable mysqld
+systemctl enable mysqld &>>$LOG
 stat $?
 
 print "Start MYSQLD"
-systemctl start mysqld
-
+systemctl start mysqld &>>$LOG
+stat $?
 exit
 
 Now a default root password will be generated and given in the log file.
