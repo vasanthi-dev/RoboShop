@@ -1,6 +1,13 @@
 #!/bin/bash
 
 print(){
+  LSPACE=$(echo $1 | awk '{print length}')
+  SPACE=$(($MSPACE-$LSPACE))
+  SPACES=""
+  while [ $SPACE -gt 0 ]; do
+    SPACES="$SPACES$(echo " ")"
+    SPACE=$(($SPACE-1))
+    done
   echo -n -e "\e[1m$1\e[0m ... "
   echo -e "\n\e[33m=============$1===============\e[0m" >>$LOG
 }

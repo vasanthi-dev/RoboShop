@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source components/common.sh
+MSPACE=$(cat $0 | grep print | awk -f '"' '{print $2}' | awk '{ print length }'| sort | tail -1)
 
 print "Installing NodeJS"
 yum install nodejs make gcc-c++ -y &>>$LOG
@@ -49,7 +50,7 @@ mv /home/roboshop/catalogue/systemd.service /etc/systemd/system/catalogue.servic
 stat $?
 
 print "Start Catalogue Service"
-systemctl daemon-reload && systemctl restart catalogue && systemctl enable catalogue &>>$LOG
+systemctl daemon-reload &>>$LOG && systemctl restart catalogue &>>$LOG && systemctl enable catalogue &>>$LOG
 stat $?
 
 
