@@ -49,5 +49,14 @@ mv /home/roboshop/catalogue/systemd.service /etc/systemd/system/catalogue.servic
 stat $?
 
 print "Start Catalogue Service"
-systemctl daemon-reload && systemctl start catalogue && systemctl enable catalogue &>>$LOG
+systemctl daemon-reload && systemctl restart catalogue && systemctl enable catalogue &>>$LOG
 stat $?
+
+print "Checking DB Connections from App"
+STAT=$(curl -s localhost:8080/health | jq .mongo)
+echo status = $STAT
+if [ "$STAT" == "true" ]; then
+  stat 0
+else
+  stat 1
+fi
