@@ -74,3 +74,14 @@ NODEJS(){
   systemctl daemon-reload &>>$LOG && systemctl restart ${COMPONENT} &>>$LOG && systemctl enable ${COMPONENT} &>>$LOG
   stat $?
 }
+CHECK_MONGO_FROM_APP(){
+  print "Checking DB Connections from App"
+  sleep 5
+  STAT=$(curl -s localhost:8080/health | jq .mongo)
+  echo status = $STAT
+  if [ "$STAT" == "true" ]; then
+    stat 0
+  else
+    stat 1
+  fi
+}
