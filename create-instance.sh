@@ -10,4 +10,8 @@ else
 fi
 
 IP=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=$1" | jq ".Reservations[].Instances[].PrivateIpAddress" | grep -v null | xargs )
+#xargs is used to remove double quotes
 sed -e "s/DNSNAME/$1.roboshop.internal/" -e "s/IPADDRESS/${IP}/" record.json >/tmp/record.json
+
+aws route53 change-resource-record-sets --hosted-zone-id Z009674929X25UC88DYV9 --change-batch file:///tmp/record.json
+
