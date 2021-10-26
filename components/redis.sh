@@ -5,11 +5,11 @@ source components/common.sh
 MSPACE=$(cat $0 components/common.sh | grep print | awk -F '"' '{print $2}' | awk '{ print length }'| sort | tail -1)
 
 print "Install Redis Repos"
-yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm -y &>>$LOG
+yum install yum-utils http://rpms.remirepo.net/enterprise/remi-release-7.rpm -y &>>$LOG
 stat $?
 
 print "Enable Redis"
-yum enable remi &>>$LOG
+yum-config-manager --enable remi &>>$LOG
 stat $?
 
 print "Install Redis"
