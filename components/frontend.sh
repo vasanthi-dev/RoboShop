@@ -20,7 +20,7 @@ print "Extract Frontend Archive"
 unzip -o -d /tmp /tmp/frontend.zip &>>$LOG
 stat $?
 
-print "Copy Files to Nginx Path "
+print "Copy Files to Nginx Path"
 mv /tmp/frontend-main/static/* /usr/share/nginx/html/. &>>$LOG
 stat $?
 
