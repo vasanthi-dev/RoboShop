@@ -9,7 +9,7 @@ yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm -y &>>$LOG
 stat $?
 
 print "Enable Redis"
-yum-config-manager --enable remi &>>$LOG
+yum enable remi &>>$LOG
 stat $?
 
 print "Install Redis"
@@ -24,3 +24,4 @@ stat $?
 
 print "Start Redis Database"
 systemctl enable redis &>>$LOG && systemctl start redis &>>$LOG
+stat $?
