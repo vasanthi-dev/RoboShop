@@ -32,7 +32,7 @@ DOWNLOAD(){
   unzip -o -d $1 /tmp/${COMPONENT}.zip &>>$LOG
   stat $?
 
-  if[ $1 == "/home/roboshop" ]; then
+  if[ "$1" == "/home/roboshop" ]; then
   print "Remove Old Content"
   rm -rf /home/roboshop/${COMPONENT} &>>$LOG
   stat $?
