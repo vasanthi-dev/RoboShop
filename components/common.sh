@@ -68,6 +68,25 @@ SYSTEMD(){
     systemctl daemon-reload &>>$LOG && systemctl restart ${COMPONENT} &>>$LOG && systemctl enable ${COMPONENT} &>>$LOG
     stat $?
 }
+PYTHON(){
+  print "Install Python 3"
+  yum install python36 gcc python3-devel -y &>>$LOG
+  stat $?
+
+  ROBOSHOP_USER
+  DOWNLOAD "/home/roboshop"
+
+ print "Install the dependencies"
+  cd /home/roboshop/${COMPONENT}
+  pip3 install -r requirements.txt &>>$LOG
+  stat $?
+  USER_ID=$(id -u roboshop)
+  GROUP_ID=$(id -g roboshop)
+  print "Upadate ${COMPONENT_NAME} Service"
+  sed -e "/uid/ c uid = ${USER_ID}" -e "/gid/ c gid = ${GROUP_ID}" /home/roboshop/${COMPONENT}/${COMPONENT}.ini
+  stat $?
+  SYSTEMD
+}
 
 MAVEN(){
   print "Install Maven"
