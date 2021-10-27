@@ -4,6 +4,9 @@ source components/common.sh
 
 MSPACE=$(cat $0 components/common.sh | grep print | awk -F '"' '{print $2}' | awk '{ print length }'| sort | tail -1)
 
+COMPONENT_NAME=MongoDB
+COMPONENT=mongodb
+
 print "Downloading Repos"
 curl -s -o /etc/yum.repos.d/mongodb.repo https://raw.githubusercontent.com/roboshop-devops-project/mongodb/main/mongo.repo &>>$LOG
 stat $?
