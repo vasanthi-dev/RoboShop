@@ -9,9 +9,8 @@ COMPONENT=shipping
 
 MAVEN
 
-sleep 10
-
 print "checking db connection from app"
+sleep 15
 STAT=$(curl -s http://localhost:8080/health)
 if [ "$STAT" == "OK" ]; then
   stat 0
