@@ -24,13 +24,7 @@ print "Restart MongoDB"
 systemctl restart mongod &>>$LOG
 stat $?
 
-print "Download Schema"
-curl -s -L -o /tmp/mongodb.zip "https://github.com/roboshop-devops-project/mongodb/archive/main.zip" &>>$LOG
-stat $?
-
-print "Extract Schema"
-unzip -o -d /tmp /tmp/mongodb.zip &>>$LOG
-stat $?
+DOWNLOAD "/tmp"
 
 print "Load Schema"
 cd /tmp/mongodb-main
