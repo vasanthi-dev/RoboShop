@@ -15,5 +15,5 @@ STAT=$(curl -s http://localhost:8080/health)
 if [ "$STAT" == "OK" ]; then
   stat 0
   else
-    stat 1
+  stat 1
 fi
