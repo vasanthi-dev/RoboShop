@@ -37,9 +37,7 @@ fi
 
 DOWNLOAD "/tmp"
 
-
-
-# cd /tmp
-# unzip mysql.zip
-# cd mysql-main
-# mysql -u root -pRoboShop@1 <shipping.sql
+print "Load Schema"
+cd /tmp/mysql-main
+mysql -u root -pR"${NEW_PASSWORD}" <shipping.sql &>>$LOG
+stat $?
