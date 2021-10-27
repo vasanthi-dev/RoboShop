@@ -39,5 +39,5 @@ DOWNLOAD "/tmp"
 
 print "Load Schema"
 cd /tmp/mysql-main
-mysql -u root -pR"${NEW_PASSWORD}" <shipping.sql &>>$LOG
+mysql -uroot -pR"${NEW_PASSWORD}" <shipping.sql &>>$LOG
 stat $?
