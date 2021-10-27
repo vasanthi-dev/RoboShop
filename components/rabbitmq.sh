@@ -19,7 +19,7 @@ yum install rabbitmq-server -y &>>$LOG
 stat $?
 
 print "Start RabbitMQ"
-systemctl enable rabbitmq-server &>>$LOG && systemctl start rabbitmq-server &>>$LOG\
+systemctl enable rabbitmq-server &>>$LOG && systemctl start rabbitmq-server &>>$LOG
 stat $?
 
 exit
