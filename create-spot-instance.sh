@@ -5,7 +5,7 @@ CREATE(){
 
   if [ $COUNT -eq 0 ]
    then
-    aws ec2 run-instances --image-id ami-0e4e4b2f188e91845 --instance-type t2.micro --security-group-ids sg-0b088a90c7082b15c --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$1}]" | jq
+    aws ec2 run-instances --launch-template LaunchTemplateId=lt-099eb0b79a90eeba3,Version=2 --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$1}]" "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=$1}]" | jq
   else
     echo -e  "\e[31mInstance already exists\e[0m"
   fi
