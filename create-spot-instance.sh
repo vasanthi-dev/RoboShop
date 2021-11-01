@@ -5,7 +5,8 @@ CREATE(){
 
   if [ $COUNT -eq 0 ]
    then
-    aws ec2 run-instances --launch-template LaunchTemplateId=lt-099eb0b79a90eeba3,Version=2 --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$1}]" "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=$1}]" | jq
+    # shellcheck disable=SC1072
+    aws ec2 run-instances --launch-template LaunchTemplateId=lt-099eb0b79a90eeba3,Version=2 --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$1}]" "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=$1}]" | jq &>>/dev/null
   else
     echo -e  "\e[31mInstance already exists\e[0m"
   fi
